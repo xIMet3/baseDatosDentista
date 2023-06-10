@@ -1,28 +1,24 @@
-'use strict';
-/** @type {import('sequelize-cli').Migration} */
+/**@type {import('sequelize-cli').Migration}*/
 module.exports = {
-  async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Roles', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
+  async up (queryInterface, Sequelize) {
+    await queryInterface.bulkInsert ('Roles', [
+      {id: 1,
+        name: "SuperAdmin",
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
-      name: {
-        type: Sequelize.STRING
+      {id: 2,
+        name: "Admin",
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
+      {id: 3,
+        name: "User",
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      }
-    });
+    ], {});
   },
-  async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Roles');
-  }
+  async down (queryInterface, Sequelize) {
+}
 };
