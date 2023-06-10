@@ -5,7 +5,8 @@ module.exports = {
       {id: 1,
         name: "SuperAdmin",
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        unique: true
       },
       {id: 2,
         name: "Admin",
