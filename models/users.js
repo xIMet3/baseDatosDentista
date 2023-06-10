@@ -9,8 +9,12 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
+    // define association here
     static associate(models) {
-      // define association here
+      models.users.belongsTo(models.role)
+    }
+    static associate(models) {
+      models.appointments.belongsTo(models.users)
     }
   }
   Users.init({
@@ -25,3 +29,4 @@ module.exports = (sequelize, DataTypes) => {
   });
   return Users;
 };
+

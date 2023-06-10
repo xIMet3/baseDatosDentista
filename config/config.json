@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": "root",
-    "database": "Proyecto backend clinica dental",
+    "database": "Proyecto_backend_clinica_dental",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
