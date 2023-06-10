@@ -13,9 +13,12 @@ module.exports = {
         type: Sequelize.STRING
       },
       price: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       duration: {
+        type: Sequelize.INTEGER
+      },
+      user_id: {
         type: Sequelize.INTEGER
       },
       createdAt: {
