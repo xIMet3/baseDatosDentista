@@ -12,10 +12,10 @@ module.exports = (sequelize, DataTypes) => {
     // define association here
     static associate(models) {
       models.users.belongsTo(models.role)
+      models.users.hasMany(models.appointments)
     }
-    static associate(models) {
-      models.appointments.belongsTo(models.users)
-    }
+    //static associate(models) {
+    //}
   }
   Users.init({
     roles_id: DataTypes.INTEGER,

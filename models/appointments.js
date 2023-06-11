@@ -11,6 +11,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      models.appointments.belongsTo(models.users)
+                         
+      models.appointments.belongsTo(models.services)
     }
   }
   Appointments.init({

@@ -16,10 +16,11 @@ module.exports = {
         type: Sequelize.STRING
       },
       user_id: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        
       },
       service_id: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
