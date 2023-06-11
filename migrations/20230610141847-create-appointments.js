@@ -24,7 +24,11 @@ module.exports = {
         
       },
       service_id: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
+        references:{
+          model: "Services",
+          key: "id"
+        }
       },
       createdAt: {
         allowNull: false,

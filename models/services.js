@@ -11,7 +11,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      models.services.hasMany(models.appointments)
+      Service.belongsTo(models.User, {
+        foreignKey: 'user_id'
+      });
     }
   }
   Services.init({
