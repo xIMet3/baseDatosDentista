@@ -1,6 +1,7 @@
 const express = require("express");
 const db = require("./db");
 const router = require("./router");
+const roleController = require("./controllers/roleController");
 
 const app = express();
 
@@ -12,42 +13,15 @@ app.listen(PORT, () => {
 
 app.use(express.json());
 
+// Role
+app.get('/role', roleController.getRole);
+app.post('/role', roleController.postRole);
+app.put('/role/:id', roleController.putRole);
+app.delete('/role/:id', roleController.deleteRole);
 
-app.get('/role', (req, res) => {
-    return res.json(
-        {
-            succes: true,
-            message: "Get All Roles"
-        }
-    )
-});
+// Users
 
-app.post('/role', (req, res) => {
-    return res.json(
-        {
-            succes: true,
-            message: "Create roles"
-        }
-    )
-});
 
-app.put('/role', (req, res) => {
-    return res.json(
-        {
-            succes: true,
-            message: "Update Roles"
-        }
-    )
-});
-
-app.delete('/role', (req, res) => {
-    return res.json(
-        {
-            succes: true,
-            message: "Delete Roles"
-        }
-    )
-});
 
 
 
