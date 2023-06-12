@@ -3,6 +3,7 @@ const db = require("./db");
 const router = require("./router");
 const roleController = require("./controllers/roleController");
 const usersController = require("./controllers/usersController");
+const appointmentsController = require("./controllers/appointmentsController");
 
 const app = express();
 
@@ -27,6 +28,10 @@ app.put('/users/:id', usersController.putUsers);
 app.delete('/users/:id', usersController.deleteUsers);
 
 // Appointments
+app.get('/appointments', appointmentsController.getAppointments);
+app.post('/appointments', appointmentsController.postAppointments);
+app.put('/appointments/:id', appointmentsController.putAppointments);
+app.delete('/appointments/:id', appointmentsController.deleteAppointments);
 
 
 
