@@ -9,12 +9,8 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    // define association here
     static associate(models) {
-      models.role.hasMany(models.users, {
-        foreignKey: 'roleId',
-        //onDelete: 'CASCADE'
-      })
+      // define association here
     }
   }
   Role.init({
@@ -25,4 +21,3 @@ module.exports = (sequelize, DataTypes) => {
   });
   return Role;
 };
-

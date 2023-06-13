@@ -1,31 +1,3 @@
-const bcrypt = require('bcrypt');
-const { User } = require("../models");
-
-const MIN_PASSWORD_LENGTH = 6;
-const usersController = {};
-
-usersController.getUsers = (req, res) => {
-    return res.json({
-        success: true,
-        message: "Get All Users"
-    });
-};
-
-
-usersController.putUsers = (req, res) => {
-    return res.json({
-        success: true,
-        message: "Update Users"
-    });
-};
-
-usersController.deleteUsers = (req, res) => {
-    return res.json({
-        success: true,
-        message: "Delete Users"
-    });
-};
-
 usersController.registerUser = async (req, res) => {
     const name = req.body.name;
     const email = req.body.email;
@@ -38,7 +10,7 @@ usersController.registerUser = async (req, res) => {
     }
 
     try {
-        const newPassword = bcrypt.hashSync(password, 6);
+        const newPassword = await bcrypt.hash(password, 6);
 
         const newUser = await User.create({
             name: name,
@@ -57,7 +29,4 @@ usersController.registerUser = async (req, res) => {
             error: error.message,
         });
     }
-}
-
-
-module.exports = usersController;
+};
