@@ -1,6 +1,6 @@
 const express = require("express");
 const db = require("./db");
-const usersController = require("./controllers/usersController"); 
+const usersController = require("./controllers/usersController");
 
 const app = express();
 
@@ -13,8 +13,13 @@ app.listen(PORT, () => {
 app.use(express.json());
 
 // Register
-app.post('/register', usersController.registerUser);
- app.post('/login', usersController.loginUser);
+app.post("/register", usersController.registerUser);
+
+app.post("/login", usersController.loginUser);
+
+// Vas a leer el token, con el auth middleware
+// Luego vas a responder al usuario con su perfil.
+// app.get('/profile', auth, usersController.loginUser)
 
 // Role
 // app.get('/role', roleController.getRole);
@@ -39,22 +44,3 @@ app.post('/register', usersController.registerUser);
 // app.post('/services', servicesController.postServices);
 // app.put('/services/:id', servicesController.putServices);
 // app.delete('/services/:id', servicesController.deleteServices);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

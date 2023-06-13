@@ -12,28 +12,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    return queryInterface.bulkInsert('Roles', [
-      {
-        id: 1,
-        name: 'admin',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        unique:true,
-
-      },
-      {
-        id: 2,
-        name: 'doctor',
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-      {
-        id: 3,
-        name: 'user',
-        createdAt: new Date(),
-        updatedAt: new Date()
-      }
-    ]);
+   //
   },
 
   async down (queryInterface, Sequelize) {
