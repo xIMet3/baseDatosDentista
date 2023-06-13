@@ -30,6 +30,7 @@ usersController.registerUser = async (req, res) => {
     const name = req.body.name;
     const email = req.body.email;
     const password = req.body.password;
+    const role_id = req.body.role_id;
 
     if (password.length < MIN_PASSWORD_LENGTH) {
         return res.status(400).json({

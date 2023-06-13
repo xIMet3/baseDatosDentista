@@ -13,13 +13,16 @@ module.exports = {
         type: Sequelize.STRING
       },
       email: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        unique: true,
+        
       },
       password: {
         type: Sequelize.STRING
       },
       telephoneNumbre: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        unique:true,
       },
       role_id: {
         type: Sequelize.INTEGER
