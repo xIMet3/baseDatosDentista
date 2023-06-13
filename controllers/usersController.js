@@ -59,5 +59,40 @@ usersController.registerUser = async (req, res) => {
     }
 }
 
+usersController.loginUser = async (req, res) => {
+    const password = req.body.password;
+    const email = req.body.email;
 
-module.exports = usersController;
+
+    try {
+        const user = await User.findOne({ email });
+
+
+        if (!user) {
+            return res.status(401).json({
+                error: 'Invalid email or password',
+            });
+        }
+
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+
+        if (!isPasswordValid) {
+            return res.status(401).json({
+                error: 'Invalid email or password',
+            });
+        }
+
+        return res.status(200).json({
+            message: 'Login successful',
+            user,
+        });
+    
+    }catch (error) {
+        return res.status(500).json({
+            message: 'Something went wrong during login',
+            error: error.message,
+        });
+    }
+}
+
+    module.exports = usersController

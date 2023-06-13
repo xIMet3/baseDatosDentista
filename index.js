@@ -14,7 +14,7 @@ app.use(express.json());
 
 // Register
 app.post('/register', usersController.registerUser);
-// app.post('/login', usersController.loginUser);
+ app.post('/login', usersController.loginUser);
 
 // Role
 // app.get('/role', roleController.getRole);
