@@ -16,7 +16,7 @@ usersController.registerUser = async (req, res) => {
       error: "La contraseña debe tener al menos 6 caracteres",
     });
   }
-
+  // Encripta la contraseña
   try {
     const newPassword = bcrypt.hashSync(password, 6);
 
@@ -56,7 +56,7 @@ usersController.loginUser = async (req, res) => {
         error: "Correo electrónico o contraseña no válidos1",
       });
     }
-    
+    // Compara la contraseña introducida con la contraseña del usuario al que quiere acceder
     const isPasswordValid = bcrypt.compareSync(password, user.password);
 
     if (!isPasswordValid) {
@@ -90,7 +90,7 @@ usersController.loginUser = async (req, res) => {
     });
   }
 };
-
+// Buscar un perfil
 usersController.getProfile = async (req, res) => {
   try {
     // Obtener el ID del usuario actual desde la solicitud
@@ -121,30 +121,71 @@ usersController.getProfile = async (req, res) => {
     });
   }
 };
-
-usersController.getAllProfiles =  async(req, res) => {
+// Buscar todos los perfiles de usuarios
+usersController.getAllProfiles = async (req, res) => {
   try {
-      const users = await User.findAll({
-          where: {
-              role_id: 3,
+    const users = await User.findAll({
+      where: {
+        role_id: 3,
+      },
+    });
 
-          }
-      });
-     
-      return res.json({
-          success: true,
-          message: "Users found",
-          data: users
-      })
+    return res.json({
+      success: true,
+      message: "Users found",
+      data: users,
+    });
   } catch (error) {
-      return res.status(500).json(
-          {
-              success: false,
-              message: "Users not found",
-              error: error
-          }
-      )    
+    return res.status(500).json({
+      success: false,
+      message: "Users not found",
+      error: error,
+    });
   }
-}
+};
+
+// Actualizar perfiles
+usersController.updateProfile = async (req, res) => {
+  try {
+    const userId = req.userId;
+    console.log(userId);
+
+    const user = await User.findByPk(userId);
+
+    if (!user) {
+      return res.json({
+        success: true,
+        message: "El usuario no existe",
+      });
+    }
+    // Parametros que se pueden actualizar/modificar
+    const { name, telephoneNumbre, email } = req.body;
+    // Recibe el perfil actualizado como respuesta
+    const profileUpdated = await user.update(
+      {
+        name: name,
+        telephoneNumbre: telephoneNumbre,
+        email: email,
+      },
+      {
+        where: {
+          id: userId,
+        },
+      }
+    );
+
+    return res.json({
+      success: true,
+      message: "Perfil actualizado",
+      data: profileUpdated,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "El usuario no puede ser actualizado",
+      error: error,
+    });
+  }
+};
 
 module.exports = usersController;
