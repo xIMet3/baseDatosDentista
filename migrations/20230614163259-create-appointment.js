@@ -10,15 +10,19 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       doctor_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Users",
+          key: "id",
+        },
       },
       patient_id: {
         type: Sequelize.INTEGER,
         references: {
           model: "Users",
           key: "id"
-        },
       },
+    },
       treatment: {
         type: Sequelize.STRING
       },
