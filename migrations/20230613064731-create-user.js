@@ -15,6 +15,7 @@ module.exports = {
       email: {
         type: Sequelize.STRING,
         unique: true,
+        required: true
         
       },
       password: {
@@ -25,7 +26,11 @@ module.exports = {
         unique:true,
       },
       role_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references:{
+          model: "Roles",
+          key: "id"
+        }
       },
       createdAt: {
         allowNull: false,

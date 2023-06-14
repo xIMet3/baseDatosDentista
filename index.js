@@ -17,15 +17,15 @@ app.post("/register", usersController.registerUser);
 
 app.post("/login", usersController.loginUser);
 
+// Ruta para obtener el perfil de usuario
+app.get('/profile', usersController.getUser);
+
+// Ruta para actualizar el perfil de usuario
+//app.put('/profile', usersController.updateProfile);
+
 // Vas a leer el token, con el auth middleware
 // Luego vas a responder al usuario con su perfil.
 // app.get('/profile', auth, usersController.loginUser)
-
-// Role
-// app.get('/role', roleController.getRole);
-// app.post('/role', roleController.postRole);
-// app.put('/role/:id', roleController.putRole);
-// app.delete('/role/:id', roleController.deleteRole);
 
 // Users
 // app.get('/users', usersController.getUsers);

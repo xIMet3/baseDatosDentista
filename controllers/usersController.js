@@ -1,102 +1,158 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcrypt");
 const { User } = require("../models");
 
 const MIN_PASSWORD_LENGTH = 6;
+
 const usersController = {};
 
-usersController.getUsers = (req, res) => {
-    return res.json({
-        success: true,
-        message: "Get All Users"
-    });
-};
-
-
-usersController.putUsers = (req, res) => {
-    return res.json({
-        success: true,
-        message: "Update Users"
-    });
-};
-
-usersController.deleteUsers = (req, res) => {
-    return res.json({
-        success: true,
-        message: "Delete Users"
-    });
-};
-
-usersController.registerUser = async (req, res) => {
-    const name = req.body.name;
-    const email = req.body.email;
-    const password = req.body.password;
-
-    if (password.length < MIN_PASSWORD_LENGTH) {
-        return res.status(400).json({
-            error: 'Password must be longer than 6 characters',
-        });
-    }
-
+// Obtener todos los usuarios
+usersController.getUser = async(req, res) => {
     try {
-        const newPassword = bcrypt.hashSync(password, 6);
+        const userId = req.userId;
 
-        const newUser = await User.create({
-            name: name,
-            email: email,
-            password: newPassword,
-            role_id: 1
-        });
-
-        return res.status(201).json({
-            message: 'User created successfully',
-            user: newUser,
-        });
+        const userProfile = await User.findByPk(
+            userId,
+            {
+                attributes: {
+                    exclude: ["password"]
+                },
+                       
+                 }
+        )
+        return res.json({
+            success: true,
+            message: "user profile retrieved",
+            data: userProfile
+        })
     } catch (error) {
-        return res.status(500).json({
-            message: 'Something went wrong creating users',
-            error: error.message,
-        });
+        return res.status(500).json(
+            {
+                success: false,
+                message: "User profile cannot be retrieved",
+                error: error
+            }
+        )    
     }
 }
 
+// Actualizar usuarios
+usersController.putUsers = (req, res) => {
+  return res.json({
+    success: true,
+    message: "Actualizar usuarios",
+  });
+};
+
+// Eliminar usuarios
+usersController.deleteUsers = (req, res) => {
+  return res.json({
+    success: true,
+    message: "Eliminar usuarios",
+  });
+};
+
+// Registrar un nuevo usuario
+usersController.registerUser = async (req, res) => {
+  const name = req.body.name;
+  const email = req.body.email;
+  const password = req.body.password;
+
+  if (password.length < MIN_PASSWORD_LENGTH) {
+    return res.status(400).json({
+      error: "La contraseña debe tener al menos 6 caracteres",
+    });
+  }
+
+  try {
+    const newPassword = bcrypt.hashSync(password, 6);
+
+    const newUser = await User.create({
+      name: name,
+      email: email,
+      password: newPassword,
+      role_id: 1,
+    });
+
+    return res.status(201).json({
+      message: "Usuario creado exitosamente",
+      user: newUser,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Ocurrió un error al crear el usuario",
+      error: error.message,
+    });
+  }
+};
+
+// Iniciar sesión de un usuario
 usersController.loginUser = async (req, res) => {
-    const password = req.body.password;
-    const email = req.body.email;
+  const password = req.body.password;
+  const email = req.body.email;
 
+  try {
+    const user = await User.findOne({
+      where: {
+        email: email,
+      },
+    });
 
-    try {
-        const user = await User.findOne({ 
-            where: { 
-                email: email
-            }  
-        });
+    if (!user) {
+      return res.status(401).json({
+        error: "Correo electrónico o contraseña no válidos",
+      });
+    }
 
+    const isPasswordValid = await bcrypt.compare(password, user.password);
 
-        if (!user) {
-            return res.status(401).json({
-                error: 'Invalid email or password',
-            });
-        }
+    if (!isPasswordValid) {
+      return res.status(401).json({
+        error: "Correo electrónico o contraseña no válidos",
+      });
+    }
 
-        const isPasswordValid = await bcrypt.compare(password, user.password);
+    return res.status(200).json({
+      message: "Inicio de sesión exitoso",
+      user,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Ocurrió un error durante el inicio de sesión",
+      error: error.message,
+    });
+  }
+};
 
-        if (!isPasswordValid) {
-            return res.status(401).json({
-                error: 'Invalid email or password',
-            });
-        }
+const userProfile = async (req, res) => {
+  try {
+    // Obtener el ID del usuario actual desde la solicitud
+    const userId = req.user.id;
 
-        return res.status(200).json({
-            message: 'Login successful',
-            user,
-        });
-    
-    }catch (error) {
-        return res.status(500).json({
-            message: 'Something went wrong during login',
-            error: error.message,
+    // Buscar el usuario en la base de datos por ID
+    const user = await User.findByPk(userId);
+
+    if (!user) {
+      return res.status(404).json(
+        {
+             success: false,
+             message: "Usuario no encontrado", 
+             error: error
         });
     }
-}
 
-    module.exports = usersController
+    // Enviar la información del perfil del usuario como respuesta
+    return res.status(200).json(
+        {
+            success: true, data: user });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(
+        {
+        success: false,
+        message: "Error al obtener el perfil del usuario",
+        error: error
+      });
+  }
+};
+
+module.exports = usersController;
