@@ -13,13 +13,18 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       patient_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Users",
+          key: "id"
+        },
       },
       treatment: {
         type: Sequelize.STRING
       },
       date: {
         type: Sequelize.DATE
+
       },
       price: {
         type: Sequelize.STRING

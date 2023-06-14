@@ -7,9 +7,11 @@ module.exports = (sequelize, DataTypes) => {
       User.belongsTo(models.Role, {
         foreignKey: "role_id",
       });
-      // User.hasMany(models.Appointment, {
-      //   foreignKey: 'user_id'
-      // });
+      
+      User.hasMany(models.Appointment, {
+        foreignKey: 'doctor_id',
+        as: 'doctor'
+      });
     }
   }
 
