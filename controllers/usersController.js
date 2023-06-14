@@ -35,21 +35,6 @@ usersController.getUser = async(req, res) => {
     }
 }
 
-// Actualizar usuarios
-usersController.putUsers = (req, res) => {
-  return res.json({
-    success: true,
-    message: "Actualizar usuarios",
-  });
-};
-
-// Eliminar usuarios
-usersController.deleteUsers = (req, res) => {
-  return res.json({
-    success: true,
-    message: "Eliminar usuarios",
-  });
-};
 
 // Registrar un nuevo usuario
 usersController.registerUser = async (req, res) => {
@@ -70,7 +55,7 @@ usersController.registerUser = async (req, res) => {
       name: name,
       email: email,
       password: newPassword,
-      role_id: 1,
+      role_id: 3,
     });
 
     return res.status(201).json({
@@ -99,15 +84,15 @@ usersController.loginUser = async (req, res) => {
 
     if (!user) {
       return res.status(401).json({
-        error: "Correo electrónico o contraseña no válidos",
+        error: "Correo electrónico o contraseña no válidos1",
       });
     }
 
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    const isPasswordValid = bcrypt.compareSync(password, user.password);
 
     if (!isPasswordValid) {
       return res.status(401).json({
-        error: "Correo electrónico o contraseña no válidos",
+        error: "Correo electrónico o contraseña no válidos2",
       });
     }
 
