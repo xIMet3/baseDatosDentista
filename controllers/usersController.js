@@ -56,16 +56,16 @@ usersController.loginUser = async (req, res) => {
         error: "Correo electrónico o contraseña no válidos1",
       });
     }
-
+    
     const isPasswordValid = bcrypt.compareSync(password, user.password);
 
     if (!isPasswordValid) {
       return res.status(401).json({
-        error: "Correo electrónico o contraseña no válidos2",
+        error: "Correo electronico o contraseña no validos",
       });
     }
 
-    // Generar un token de autenticacion utilizando JWT
+    // Generar un token de autenticacion JWT
     const token = jwt.sign(
       {
         userId: user.id,
@@ -107,7 +107,7 @@ usersController.getProfile = async (req, res) => {
       });
     }
 
-    // Enviar la información del perfil del usuario como respuesta
+    // Enviar el perfil del usuario como respuesta
     return res.status(200).json({
       success: true,
       data: user,
@@ -121,5 +121,30 @@ usersController.getProfile = async (req, res) => {
     });
   }
 };
+
+usersController.getAllProfiles =  async(req, res) => {
+  try {
+      const users = await User.findAll({
+          where: {
+              role_id: 3,
+
+          }
+      });
+     
+      return res.json({
+          success: true,
+          message: "Users found",
+          data: users
+      })
+  } catch (error) {
+      return res.status(500).json(
+          {
+              success: false,
+              message: "Users not found",
+              error: error
+          }
+      )    
+  }
+}
 
 module.exports = usersController;

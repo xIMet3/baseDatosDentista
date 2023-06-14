@@ -8,7 +8,7 @@ const auth = (req, res, next) => {
             return res.json(
                 {
                     success: true,
-                    message: "no puedes pasar"
+                    message: "No tienes permisos necesarios"
                 }
             )
         }

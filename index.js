@@ -1,7 +1,8 @@
 const express = require("express");
 const db = require("./db");
 const usersController = require("./controllers/usersController");
-const auth = require('./middleware/verifyToken')
+const auth = require('./middleware/verifyToken');
+const isAdmin = require("./middleware/isAdmin");
 
 const app = express();
 
@@ -20,6 +21,9 @@ app.post("/login", usersController.loginUser);
 
 // Ruta para obtener el perfil de usuario
 app.get('/profile', auth, usersController.getProfile);
+
+// Ruta para obtener todos los perfiles de usuario
+app.get('/allProfiles', auth, isAdmin, usersController.getAllProfiles);
 
 // Ruta para actualizar el perfil de usuario
 //app.put('/profile', usersController.updateProfile);
