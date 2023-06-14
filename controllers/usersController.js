@@ -1,40 +1,9 @@
 const bcrypt = require("bcrypt");
 const { User } = require("../models");
-
+const jwt = require("jsonwebtoken");
 const MIN_PASSWORD_LENGTH = 6;
 
 const usersController = {};
-
-// Obtener todos los usuarios
-usersController.getUser = async(req, res) => {
-    try {
-        const userId = req.userId;
-
-        const userProfile = await User.findByPk(
-            userId,
-            {
-                attributes: {
-                    exclude: ["password"]
-                },
-                       
-                 }
-        )
-        return res.json({
-            success: true,
-            message: "user profile retrieved",
-            data: userProfile
-        })
-    } catch (error) {
-        return res.status(500).json(
-            {
-                success: false,
-                message: "User profile cannot be retrieved",
-                error: error
-            }
-        )    
-    }
-}
-
 
 // Registrar un nuevo usuario
 usersController.registerUser = async (req, res) => {
@@ -96,8 +65,22 @@ usersController.loginUser = async (req, res) => {
       });
     }
 
+    // Generar un token de autenticacion utilizando JWT
+    const token = jwt.sign(
+      {
+        userId: user.id,
+        roleId: user.role_id,
+        email: user.email,
+      },
+      "secreto",
+      {
+        expiresIn: "2h",
+      }
+    );
+
     return res.status(200).json({
       message: "Inicio de sesión exitoso",
+      token,
       user,
     });
   } catch (error) {
@@ -108,35 +91,34 @@ usersController.loginUser = async (req, res) => {
   }
 };
 
-const userProfile = async (req, res) => {
+usersController.getProfile = async (req, res) => {
   try {
     // Obtener el ID del usuario actual desde la solicitud
-    const userId = req.user.id;
+    const userId = req.userId;
 
     // Buscar el usuario en la base de datos por ID
     const user = await User.findByPk(userId);
 
     if (!user) {
-      return res.status(404).json(
-        {
-             success: false,
-             message: "Usuario no encontrado", 
-             error: error
-        });
+      return res.status(404).json({
+        success: false,
+        message: "Usuario no encontrado",
+        error: error,
+      });
     }
 
     // Enviar la información del perfil del usuario como respuesta
-    return res.status(200).json(
-        {
-            success: true, data: user });
+    return res.status(200).json({
+      success: true,
+      data: user,
+    });
   } catch (error) {
     console.log(error);
-    return res.status(500).json(
-        {
-        success: false,
-        message: "Error al obtener el perfil del usuario",
-        error: error
-      });
+    return res.status(500).json({
+      success: false,
+      message: "Error al obtener el perfil del usuario",
+      error: error,
+    });
   }
 };
 

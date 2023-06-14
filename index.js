@@ -1,6 +1,7 @@
 const express = require("express");
 const db = require("./db");
 const usersController = require("./controllers/usersController");
+const auth = require('./middleware/verifyToken')
 
 const app = express();
 
@@ -18,7 +19,7 @@ app.post("/register", usersController.registerUser);
 app.post("/login", usersController.loginUser);
 
 // Ruta para obtener el perfil de usuario
-app.get('/profile', usersController.getUser);
+app.get('/profile', auth, usersController.getProfile);
 
 // Ruta para actualizar el perfil de usuario
 //app.put('/profile', usersController.updateProfile);
