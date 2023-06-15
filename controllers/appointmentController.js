@@ -1,22 +1,22 @@
-const { Appointment } = require("../models");
+const { Appointment } = require("../models/appointment");
 const appointmentController = {};
 
 
 // Crear citas
 appointmentController.createAppointment = async (req, res) => {
     try {
-      const { date, doctor_id, patient_id, service_id } = req.body;
+      const { date, doctor_id, user_id, treatments_id } = req.body;
   
       const { role_id, userId } = req;
   
-      if (role_id === 1 && patient_id !== userId) {
+      if (role_id === 3 && user_id !== userId) {
         return res.json({
           success: false,
           message: "Solo puedes crear tus propias citas",
         });
       }
   
-      if (role_id === 3 && !patient_id) {
+      if (role_id === 2 && !user_id) {
         return res.json({
           success: false,
           message: "Debes identificarte como paciente",
@@ -26,8 +26,9 @@ appointmentController.createAppointment = async (req, res) => {
       const newAppointment = await Appointment.create({
         date,
         doctor_id,
-        patient_id,
-        service_id,
+        user_id,
+        description,
+        treatments_id,
       });
   
       return res.json({
