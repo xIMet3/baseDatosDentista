@@ -15,12 +15,12 @@ module.exports = (sequelize, DataTypes) => {
         as: 'doctor'
       });
       Appointment.belongsTo(models.User, {
-        foreignKey: 'user_id',
-        as: 'user'
+        foreignKey: 'users_id',
+        as: 'users'
       });
       Appointment.belongsTo(models.Treatments, {
-        foreignKey: 'treatments_id',
-        as: "treatments"
+        foreignKey: 'treatment_id',
+        as: "treatment"
       })
     }
   }
