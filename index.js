@@ -35,4 +35,7 @@ app.put("/updateProfile", auth, usersController.updateProfile);
 app.post("/newAppointment", auth, appointmentController.createAppointment);
 
 // Ruta para obtener tus citas
-app.get("/allAppointments", auth, appointmentController.getAllAppointments)
+app.get("/allAppointments", auth, appointmentController.getAllAppointments);
+
+// Ruta para modificar citas
+app.put("/updateAppointment/:id", auth, appointmentController.updateAppointment);

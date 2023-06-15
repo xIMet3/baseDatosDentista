@@ -5,7 +5,7 @@ const appointmentController = {};
 // Crear citas
 appointmentController.createAppointment = async (req, res) => {
     try {
-      const { date, doctor_id, users_id, treatments_id } = req.body;
+      const { date, doctor_id, users_id, treatment_id } = req.body;
   
       const { role_id, userId } = req;
   
@@ -27,7 +27,7 @@ appointmentController.createAppointment = async (req, res) => {
         date: date,
         doctor_id: doctor_id,
         users_id: userId,
-        treatments_id: treatments_id
+        treatment_id: treatment_id
       });
   
       return res.json({
@@ -38,7 +38,7 @@ appointmentController.createAppointment = async (req, res) => {
     } catch (error) {
       return res.status(500).json({
         success: false,
-        message: "Appointment cannot be created",
+        message: "No se pudo modificar la cita",
         error: error,
       });
     }
@@ -68,6 +68,49 @@ appointmentController.createAppointment = async (req, res) => {
         success: false,
         message: "No se encontraron citas",
         error: error.message,
+      });
+    }
+  };
+
+  // Modificar tus citas
+  appointmentController.updateAppointment = async (req, res) => {
+    try {
+      const appointmentId = req.params.id;
+      console.log(appointmentId);
+  
+      const appointment = await Appointment.findByPk(appointmentId);
+  
+      if (!appointment) {
+        return res.json({
+          success: true,
+          message: "El id de la cita no existe",
+        });
+      }
+      const { date, treatment_id, doctor_id } = req.body;
+  
+      const appointmentUpdate = await Appointment.update(
+        {
+          date: date, //'2023-06-07T14:30:00' <= formato fecha
+          treatment_id: treatment_id,
+          doctor_id: doctor_id,
+        },
+        {
+          where: {
+            id: appointmentId,
+          },
+        }
+      );
+  
+      return res.json({
+        success: true,
+        message: "Appointment updated",
+        data: appointmentUpdate,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        success: false,
+        message: "No se pudo actualizar la cita",
+        error: error,
       });
     }
   };
