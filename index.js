@@ -39,3 +39,6 @@ app.get("/allAppointments", auth, appointmentController.getAllAppointments);
 
 // Ruta para modificar citas
 app.put("/updateAppointment/:id", auth, appointmentController.updateAppointment);
+
+// Ruta para eliminar citas
+app.delete("/deleteAppointment/:id", auth, appointmentController.deleteAppointment);
