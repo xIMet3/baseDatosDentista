@@ -5,12 +5,15 @@ module.exports = (sequelize, DataTypes) => {
     
     static associate(models) {
       User.belongsTo(models.Role, {
-        foreignKey: "role_id",
+        foreignKey: 'role_id'
       });
-      
       User.hasMany(models.Appointment, {
         foreignKey: 'doctor_id',
         as: 'doctor'
+      });
+      User.hasMany(models.Appointment, {
+        foreignKey: 'user_id',
+        as: 'user'
       });
     }
   }
