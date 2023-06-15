@@ -32,5 +32,4 @@ app.get("/allProfiles", auth, isAdmin, usersController.getAllProfiles);
 app.put("/updateProfile", auth, usersController.updateProfile);
 
 // Ruta para crear citas
-
-//app.post("/newAppointment", auth, appointmentController.createAppointment);
+app.post('/newAppointment', auth, appointmentController.createAppointment);

@@ -1,4 +1,4 @@
-const { Appointment } = require("../models/appointment");
+const { Appointment } = require("../models/");
 const appointmentController = {};
 
 
@@ -24,16 +24,15 @@ appointmentController.createAppointment = async (req, res) => {
       }
   
       const newAppointment = await Appointment.create({
-        date,
-        doctor_id,
-        user_id,
-        description,
-        treatments_id,
+        date: date,
+        doctor_id: doctor_id,
+        user_id: userId,
+        treatments_id: treatments_id
       });
   
       return res.json({
         success: true,
-        message: "Appointment created",
+        message: "Cita creada",
         data: newAppointment,
       });
     } catch (error) {
@@ -44,3 +43,11 @@ appointmentController.createAppointment = async (req, res) => {
       });
     }
   };
+
+
+
+
+
+
+
+  module.exports = appointmentController

@@ -5,14 +5,15 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     await queryInterface.bulkInsert ('Treatments', [
       {
+        id:1,
         name: "Limpieza bucal",
         description: "Limpieza dental y encias requerida para la salud bucal.",
         price: "59.95€",
         createdAt: new Date(),
         updatedAt: new Date()
       },
-        
       {
+        id:2,
         name: "Extraccion",
         price: "49.95€",
         description: "Extraccion de cualquier pieza dental",
@@ -20,6 +21,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
+        id:3,
         name: "Implante",
         price: "899.95€",
         description: "Extraccion de cualquier pieza dental y sustitucion por implante dental",
