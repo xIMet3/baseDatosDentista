@@ -52,9 +52,9 @@ appointmentController.createAppointment = async (req, res) => {
   
       const allAppointments = await Appointment.findAll(
         {
-        //  where: {
-        //    users_id: userId,
-        //  },
+          where: {
+            users_id: userId,
+          },
        }
       );
   
