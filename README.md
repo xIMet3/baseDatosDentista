@@ -53,7 +53,9 @@ He desarroyado esta API para el 4º proyecto del **Bootcamp de Full Stack Develo
     ![login](./img/loginUsuario.png)
 
     **Token**
+    <br>
     ![generateToken](./img/token.png)
+    <br>
     Copias el token y lo pegas aqui: 
     ![addToken](./img/a%C3%B1adirToken.png)
 
