@@ -4,7 +4,8 @@ const usersController = require("./controllers/usersController");
 const auth = require("./middleware/verifyToken");
 const isAdmin = require("./middleware/isAdmin");
 //const appointment = require("./models/appointment");
-const appointmentController = require("./controllers/appointmentController")
+const appointmentController = require("./controllers/appointmentController");
+const isDoctor = require("./middleware/isDoctor");
 
 const app = express();
 
@@ -42,3 +43,6 @@ app.put("/updateAppointment/:id", auth, appointmentController.updateAppointment)
 
 // Ruta para eliminar citas
 app.delete("/deleteAppointment/:id", auth, appointmentController.deleteAppointment);
+
+// Ruta para ver todas las citas como doctor
+app.get("/appointmentsByDoctor", auth, isDoctor, appointmentController.getAllAppointmentsDoctor);

@@ -1,4 +1,6 @@
 const { Appointment } = require("../models/");
+const treatments = require("../models/treatments");
+const user = require("../models/user");
 const appointmentController = {};
 
 
@@ -48,7 +50,6 @@ appointmentController.createAppointment = async (req, res) => {
   appointmentController.getAllAppointments = async (req, res) => {
     try {
       const { userId } = req;
-      console.log(userId)
   
       const allAppointments = await Appointment.findAll(
         {
@@ -138,12 +139,121 @@ appointmentController.createAppointment = async (req, res) => {
       });
     }
   };
+
+  // Ver todas las citas como Doctor
+  appointmentController.getAllAppointmentsDoctor =  async(req, res) => {
+    try {
+        const appointments = await Appointment.findAll({
+
+        }
+        );
+       
+        return res.json({
+            success: true,
+            message: "Econtradas citas pendiente",
+            data: appointments
+        })
+    } catch (error) {
+        return res.status(500).json(
+            {
+                success: false,
+                message: "No se econtraron citas pendientes",
+                error: error
+            }
+        )    
+    }
+}
+module.exports = appointmentController
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//   appointmentController.getAllAppointmentsDoctor =  async(req, res) => {
+//     try {
+//         const appointments = await Appointment.findAll({
+            
+//             attributes: ["date"],
+//             include: [
+//                 {
+//                 model: user,
+//                 as: "user",
+//                 attributes: ["name", "email"]
+//                 },
+//                 {
+//                 model: treatments,
+//                 as: "treatments",
+//                 attributes: ["treatments", "description"]
+//             },
+//             {
+//                 model: user,
+//                 as: "doctor",
+//                 attributes: ["name", "email"]
+//             }
+//         ]
+//         });
+
+//         return res.json({
+//             success: true,
+//             message: "Citas pendientes recuperadas",
+//             data: appointments
+//         })
+//     } catch (error) {
+//         return res.status(500).json({
+//                 success: false,
+//                 message: "No se encontraron citas pendientes",
+//                 error: error.message
+//             })    
+//     }
+// }
+
+
+
+
   
+  
+  // appointmentController.getAppointment = async (req, res) => {
+  //   try {
+  //     const pendingAppointments = await Appointment.findAll({
+      
+  //       attributes: ["users_id", "date", "treatment_id", "description"],
+  //     });
+    
+  //     return res.status(200).json({
+  //       message: ("Tus citas pendientes: " + pendingAppointments)
+  //     });
+
+  //   }catch (error) {
+  //       return res.status(500).json({
+  //         success: false,
+  //         message: "La cita no pudo ser eliminada",
+  //         error: error,
+  //       });
+  //   }
+  // };
 
 
 
 
 
-
-
-  module.exports = appointmentController
