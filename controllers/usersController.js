@@ -187,5 +187,4 @@ usersController.updateProfile = async (req, res) => {
     });
   }
 };
-
 module.exports = usersController;
