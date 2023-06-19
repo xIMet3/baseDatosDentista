@@ -95,8 +95,9 @@ treatmentsController.updateTreatment = async (req, res) => {
 
 treatmentsController.deleteTreatment = async (req, res) => {
   try{
+    // Obtiene el ID del tratamiento de los parametros (url/id)
     const treatmentId = req.params.id
-    
+    // Elimina el tratamiento usando el modelo Treatments
     const deleteTreatment = await Treatments.destroy({
       where: {
         id: treatmentId,
