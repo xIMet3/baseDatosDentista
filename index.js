@@ -7,6 +7,8 @@ const isAdmin = require("./middleware/isAdmin");
 const appointmentController = require("./controllers/appointmentController");
 const isDoctor = require("./middleware/isDoctor");
 
+const cors = require("cors");
+
 const app = express();
 
 const PORT = 3000;
