@@ -8,6 +8,7 @@ const appointmentController = require("./controllers/appointmentController");
 const isDoctor = require("./middleware/isDoctor");
 
 const cors = require("cors");
+const treatmentsController = require("./controllers/treatmentController");
 
 const app = express();
 
@@ -48,3 +49,6 @@ app.delete("/deleteAppointment/:id", auth, appointmentController.deleteAppointme
 
 // Ruta para ver todas las citas como doctor
 app.get("/appointmentsByDoctor", auth, isDoctor, appointmentController.getAllAppointmentsDoctor);
+
+// Ruta para crear un tratamiento
+app.post("/treatmentCreate",auth, isAdmin, treatmentsController.createTreatment);

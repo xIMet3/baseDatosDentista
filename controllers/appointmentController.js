@@ -1,6 +1,5 @@
-const { Appointment } = require("../models/");
-const treatments = require("../models/treatments");
-const user = require("../models/user");
+const { Appointment, Treatments } = require("../models/");
+
 const appointmentController = {};
 
 // Crear citas
@@ -8,16 +7,18 @@ appointmentController.createAppointment = async (req, res) => {
   try {
     const { date, doctor_id, users_id, treatment_id } = req.body;
 
-    const { role_id, userId } = req;
+    const { roleId, userId } = req;
 
-    if (role_id === 3 && users_id !== userId) {
+    console.log (userId, users_id)
+
+    if (roleId === 3 && users_id != userId) {
       return res.json({
         success: false,
         message: "Solo puedes crear tus propias citas",
       });
     }
 
-    if (role_id === 2 && !users_id) {
+    if (roleId === 2 && !users_id) {
       return res.json({
         success: false,
         message: "Debes identificarte como paciente",
@@ -54,6 +55,19 @@ appointmentController.getAllAppointments = async (req, res) => {
       where: {
         users_id: userId,
       },
+      include: [
+        {
+        model: Treatments,
+        as: "Treatment",
+        attributes: {
+          exclude: [
+            "createdAt", "updatedAt"
+          ]
+        }
+
+        }
+      ]
+
     });
 
     return res.json({
@@ -74,7 +88,6 @@ appointmentController.getAllAppointments = async (req, res) => {
 appointmentController.updateAppointment = async (req, res) => {
   try {
     const appointmentId = req.params.id;
-    console.log(appointmentId);
 
     const appointment = await Appointment.findByPk(appointmentId);
 
@@ -116,7 +129,7 @@ appointmentController.updateAppointment = async (req, res) => {
 // Eliminar citas
 appointmentController.deleteAppointment = async (req, res) => {
   try {
-    const appointmentId = req.params.id;
+    const appointmentId = req.params.id
 
     const deleteAppointment = await Appointment.destroy({
       where: {
@@ -155,4 +168,18 @@ appointmentController.getAllAppointmentsDoctor = async (req, res) => {
     });
   }
 };
+
+
+
+
+
+
+
+
+
+
+
+
 module.exports = appointmentController;
+
+

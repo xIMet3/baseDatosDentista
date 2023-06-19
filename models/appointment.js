@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       });
       Appointment.belongsTo(models.Treatments, {
         foreignKey: "treatment_id",
-        as: "treatment",
+        as: "Treatment",
       });
     }
   }
@@ -32,3 +32,12 @@ module.exports = (sequelize, DataTypes) => {
   );
   return Appointment;
 };
+
+
+
+
+
+
+
+
+

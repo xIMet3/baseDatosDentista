@@ -34,9 +34,13 @@ module.exports = {
       },
       description: {
         type: Sequelize.STRING,
+        // references: {
+        //   model: "Treatments",
+        //   key: "description"
+        // }
       },
       treatment_id: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         references: {
           model: "Treatments",
           key: "id",
