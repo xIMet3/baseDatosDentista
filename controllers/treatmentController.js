@@ -29,7 +29,7 @@ treatmentsController.createTreatment = async (req, res) => {
 
 treatmentsController.getAllTreatments = async (req, res) => {
   try {
-    const {userId} = req;
+    const { userId } = req;
 
     const allTreatments = await Treatments.findAll({});
 
@@ -38,22 +38,58 @@ treatmentsController.getAllTreatments = async (req, res) => {
       mesaage: "Aqui tienes todos los tratamientos actuales",
       data: allTreatments,
     });
-  }catch (error) {
+  } catch (error) {
     return res.status(500).json({
       success: false,
       message: "No se encontraron tratamientos actualmente",
       error: error,
     });
+  }
 };
-}
 
+treatmentsController.updateTreatment = async (req, res) => {
+  try {
+    //Obtiene el ID del tratamientodesde los parametros de la solicitud (/id en la url)
+    const treatmentId = req.params.id;
+    // Busca el tratamiento por la ID en la BD
+    const treatment = await Treatments.findByPk(treatmentId);
 
+    if (!treatment) {
+      return res.json({
+        // Si el tratamiento no existe devuelve que el ID no existe
+        succes: true,
+        message: "El id del tratamiento no existe",
+      });
+    }
+    // Extrae las nuevas propiedades del body
+    const { name, description, price } = req.body;
 
-
-
-
-
-
-
-
+    // Actualiza el tratamiento en la BD con las nuevas propiedades
+    const treatmentUpdate = await Treatments.update(
+      {
+        name: name,
+        description: description,
+        price: price,
+      },
+      {
+        where: {
+          id:treatmentId,
+        },
+      }
+    );
+    console.log()
+    return res.json({
+      succes: true,
+      message: "Tratamiento actualizado",
+      // Devuelve los datos actualizados
+      data: treatmentUpdate,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      succes: false,
+      message: "No se pudo actualizar el tratamiento",
+      error: error,
+    });
+  }
+};
 module.exports = treatmentsController;

@@ -54,3 +54,6 @@ app.post("/treatmentCreate",auth, isAdmin, treatmentsController.createTreatment)
 
 // Ruta para ver todos los tratamientos como admin
 app.get("/allTreatments", auth, isAdmin, treatmentsController.getAllTreatments);
+
+// Ruta para actualizar un tratamiento
+app.put("/updateTreatment/:id", auth, isAdmin, treatmentsController.updateTreatment);
