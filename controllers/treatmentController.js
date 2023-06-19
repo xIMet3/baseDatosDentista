@@ -2,6 +2,7 @@ const { Treatments } = require("../models");
 //const Treatments = require ('../models/treatments');
 const treatmentsController = {};
 
+// Funcion para crear un nuevo tratamiento
 treatmentsController.createTreatment = async (req, res) => {
   try {
     const { name, description, price } = req.body;
@@ -25,6 +26,27 @@ treatmentsController.createTreatment = async (req, res) => {
     });
   }
 };
+
+treatmentsController.getAllTreatments = async (req, res) => {
+  try {
+    const {userId} = req;
+
+    const allTreatments = await Treatments.findAll({});
+
+    return res.json({
+      succes: true,
+      mesaage: "Aqui tienes todos los tratamientos actuales",
+      data: allTreatments,
+    });
+  }catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "No se encontraron tratamientos actualmente",
+      error: error,
+    });
+};
+}
+
 
 
 

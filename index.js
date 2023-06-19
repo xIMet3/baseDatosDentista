@@ -1,9 +1,8 @@
 const express = require("express");
-const db = require("./db");
+//const db = require("./db");
 const usersController = require("./controllers/usersController");
 const auth = require("./middleware/verifyToken");
 const isAdmin = require("./middleware/isAdmin");
-//const appointment = require("./models/appointment");
 const appointmentController = require("./controllers/appointmentController");
 const isDoctor = require("./middleware/isDoctor");
 
@@ -52,3 +51,6 @@ app.get("/appointmentsByDoctor", auth, isDoctor, appointmentController.getAllApp
 
 // Ruta para crear un tratamiento
 app.post("/treatmentCreate",auth, isAdmin, treatmentsController.createTreatment);
+
+// Ruta para ver todos los tratamientos como admin
+app.get("/allTreatments", auth, isAdmin, treatmentsController.getAllTreatments);
