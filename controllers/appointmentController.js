@@ -168,18 +168,4 @@ appointmentController.getAllAppointmentsDoctor = async (req, res) => {
     });
   }
 };
-
-
-
-
-
-
-
-
-
-
-
-
 module.exports = appointmentController;
-
-

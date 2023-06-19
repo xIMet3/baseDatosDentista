@@ -57,3 +57,6 @@ app.get("/allTreatments", auth, isAdmin, treatmentsController.getAllTreatments);
 
 // Ruta para actualizar un tratamiento
 app.put("/updateTreatment/:id", auth, isAdmin, treatmentsController.updateTreatment);
+
+// Ruta para eliminar un tratamiento
+app.delete("/deleteTreatment/:id", auth, isAdmin, treatmentsController.deleteTreatment);

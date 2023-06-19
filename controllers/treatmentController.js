@@ -92,4 +92,27 @@ treatmentsController.updateTreatment = async (req, res) => {
     });
   }
 };
+
+treatmentsController.deleteTreatment = async (req, res) => {
+  try{
+    const treatmentId = req.params.id
+    
+    const deleteTreatment = await Treatments.destroy({
+      where: {
+        id: treatmentId,
+      },
+    });
+    return res.json ({
+      succes: true,
+      message: "Tratamiento eliminado",
+      data: deleteTreatment,
+    });
+  }catch (error){
+    return res.status(500).json({
+      succes: false,
+      message: "El tratamiento no pudo ser eliminado",
+      error: error,
+    });
+  }
+}
 module.exports = treatmentsController;
