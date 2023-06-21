@@ -11,6 +11,8 @@ module.exports = {
       },
       date: {
         type: Sequelize.DATE,
+        unique: true,
+        required: true
       },
       doctor_id: {
         type: Sequelize.INTEGER,
@@ -40,7 +42,7 @@ module.exports = {
         // }
       },
       treatment_id: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         references: {
           model: "Treatments",
           key: "id",

@@ -40,7 +40,7 @@ appointmentController.createAppointment = async (req, res) => {
   } catch (error) {
     return res.status(500).json({
       success: false,
-      message: "No se pudo modificar la cita",
+      message: "No se pudo crear la cita",
       error: error,
     });
   }

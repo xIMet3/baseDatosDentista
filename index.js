@@ -1,5 +1,5 @@
 const express = require("express");
-//const db = require("./db");
+const db = require("./db");
 const usersController = require("./controllers/usersController");
 const auth = require("./middleware/verifyToken");
 const isAdmin = require("./middleware/isAdmin");
@@ -12,10 +12,12 @@ const treatmentsController = require("./controllers/treatmentController");
 const app = express();
 
 const PORT = 3000;
-
+db.then(() => {
 app.listen(PORT, () => {
   console.log("Servidor levantado en el puerto " + PORT);
 });
+})
+
 
 app.use(express.json());
 

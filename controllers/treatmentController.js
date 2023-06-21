@@ -1,5 +1,4 @@
 const { Treatments } = require("../models");
-//const Treatments = require ('../models/treatments');
 const treatmentsController = {};
 
 // Funcion para crear un nuevo tratamiento
@@ -73,11 +72,11 @@ treatmentsController.updateTreatment = async (req, res) => {
       },
       {
         where: {
-          id:treatmentId,
+          id: treatmentId,
         },
       }
     );
-    console.log()
+    console.log();
     return res.json({
       succes: true,
       message: "Tratamiento actualizado",
@@ -94,26 +93,26 @@ treatmentsController.updateTreatment = async (req, res) => {
 };
 
 treatmentsController.deleteTreatment = async (req, res) => {
-  try{
+  try {
     // Obtiene el ID del tratamiento de los parametros (url/id)
-    const treatmentId = req.params.id
+    const treatmentId = req.params.id;
     // Elimina el tratamiento usando el modelo Treatments
     const deleteTreatment = await Treatments.destroy({
       where: {
         id: treatmentId,
       },
     });
-    return res.json ({
+    return res.json({
       succes: true,
       message: "Tratamiento eliminado",
       data: deleteTreatment,
     });
-  }catch (error){
+  } catch (error) {
     return res.status(500).json({
       succes: false,
       message: "El tratamiento no pudo ser eliminado",
       error: error,
     });
   }
-}
+};
 module.exports = treatmentsController;
