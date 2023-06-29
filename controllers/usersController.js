@@ -43,6 +43,8 @@ usersController.registerUser = async (req, res) => {
 usersController.loginUser = async (req, res) => {
   const password = req.body.password;
   const email = req.body.email;
+  console.log("ASDASDASDASDASDASDASDASDASDASD")
+console.log(req.body)
 
   try {
     const user = await User.findOne({
@@ -77,12 +79,13 @@ usersController.loginUser = async (req, res) => {
         expiresIn: "2h",
       }
     );
-
     return res.status(200).json({
       message: "Inicio de sesión exitoso",
       token,
       user,
     });
+    console.log("ASDASDASDASDASDASDASDASDASDASD")
+    console.log(req.body)
   } catch (error) {
     return res.status(500).json({
       message: "Ocurrió un error durante el inicio de sesión",

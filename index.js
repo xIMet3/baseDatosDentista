@@ -20,12 +20,14 @@ app.listen(PORT, () => {
 
 
 app.use(express.json());
+app.use(cors());
 
 // Rutas
 // Register
 app.post("/register", usersController.registerUser);
 // Login
 app.post("/login", usersController.loginUser);
+
 
 // Ruta para obtener el perfil de usuario
 app.get("/profile", auth, usersController.getProfile);
