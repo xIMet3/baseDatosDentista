@@ -11,21 +11,13 @@ usersController.registerUser = async (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
   const telephoneNumber = req.body.telephoneNumber;
-  console.log("telephoneNumber:", telephoneNumber);
-  console.log("telephoneNumber length:", telephoneNumber.length);
 
   if (telephoneNumber.length != 9) {
     return res.status(400).json({
       error: "El número de teléfono debe tener exactamente 9 dígitos",
     });
   }
-  
 
-  if (telephoneNumber.length !== 9) {
-    return res.status(400).json({
-      error: "El número de teléfono debe tener exactamente 9 dígitos",
-    });
-  }
 
   // Encripta la contraseña
   try {
