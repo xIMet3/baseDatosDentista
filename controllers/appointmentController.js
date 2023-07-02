@@ -5,7 +5,8 @@ const appointmentController = {};
 // Crear citas
 appointmentController.createAppointment = async (req, res) => {
   try {
-    const { date, doctor_id, users_id, treatment_id } = req.body;
+    const { date, doctor_id, treatment_id } = req.body;
+    const { userId: users_id} = req;
 
     const { roleId, userId } = req;
 
