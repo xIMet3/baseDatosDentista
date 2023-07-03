@@ -18,7 +18,7 @@ module.exports = {
         },
         {
           id: 2,
-          name: "Jesus",
+          name: "Dr. Jesús Vázkez",
           email: "jesus@mail.com",
           password: bcrypt.hashSync("admin123", 6),
           telephoneNumber: "666444333",
@@ -28,7 +28,7 @@ module.exports = {
         },
         {
           id: 3,
-          name: "Carlos",
+          name: "Dr. Carlos Redondo",
           email: "carlos@mail.com",
           password: bcrypt.hashSync("admin123", 6),
           telephoneNumber: "666333222",

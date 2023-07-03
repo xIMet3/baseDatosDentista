@@ -5,12 +5,12 @@ const appointmentController = {};
 // Crear citas
 appointmentController.createAppointment = async (req, res) => {
   try {
-    const { date, doctor_id, treatment_id } = req.body;
-    const { userId: users_id} = req;
+    const { date, doctor_id, treatment_id, description } = req.body;
+    const { userId: users_id } = req;
 
     const { roleId, userId } = req;
 
-    console.log (userId, users_id)
+    console.log(userId, users_id);
 
     if (roleId === 3 && users_id != userId) {
       return res.json({
@@ -31,6 +31,7 @@ appointmentController.createAppointment = async (req, res) => {
       doctor_id: doctor_id,
       users_id: userId,
       treatment_id: treatment_id,
+      description: description, // Nuevo campo de descripción
     });
 
     return res.json({
@@ -58,17 +59,13 @@ appointmentController.getAllAppointments = async (req, res) => {
       },
       include: [
         {
-        model: Treatments,
-        as: "Treatment",
-        attributes: {
-          exclude: [
-            "createdAt", "updatedAt"
-          ]
-        }
-
-        }
-      ]
-
+          model: Treatments,
+          as: "Treatment",
+          attributes: {
+            exclude: ["createdAt", "updatedAt"],
+          },
+        },
+      ],
     });
 
     return res.json({
@@ -98,13 +95,14 @@ appointmentController.updateAppointment = async (req, res) => {
         message: "El id de la cita no existe",
       });
     }
-    const { date, treatment_id, doctor_id } = req.body;
+    const { date, treatment_id, doctor_id, description } = req.body;
 
     const appointmentUpdate = await Appointment.update(
       {
-        date: date, //'2023-06-07T14:30:00' <= formato fecha
+        date: date,
         treatment_id: treatment_id,
         doctor_id: doctor_id,
+        description: description, // Nuevo campo de descripción
       },
       {
         where: {
@@ -130,7 +128,7 @@ appointmentController.updateAppointment = async (req, res) => {
 // Eliminar citas
 appointmentController.deleteAppointment = async (req, res) => {
   try {
-    const appointmentId = req.params.id
+    const appointmentId = req.params.id;
 
     const deleteAppointment = await Appointment.destroy({
       where: {
@@ -169,4 +167,5 @@ appointmentController.getAllAppointmentsDoctor = async (req, res) => {
     });
   }
 };
+
 module.exports = appointmentController;
