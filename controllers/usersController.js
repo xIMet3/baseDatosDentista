@@ -130,7 +130,7 @@ usersController.getAllProfiles = async (req, res) => {
   try {
     const users = await User.findAll({
       where: {
-        role_id: 3,
+        role_id: [2, 3]
       },
     });
 

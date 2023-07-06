@@ -57,7 +57,7 @@ app.get("/appointmentsByDoctor", auth, isDoctor, appointmentController.getAllApp
 app.post("/treatmentCreate",auth, isAdmin, treatmentsController.createTreatment);
 
 // Ruta para ver todos los tratamientos como admin
-app.get("/allTreatments", auth, isAdmin, treatmentsController.getAllTreatments);
+app.get("/allTreatments", treatmentsController.getAllTreatments);
 
 // Ruta para actualizar un tratamiento
 app.put("/updateTreatment/:id", auth, isAdmin, treatmentsController.updateTreatment);
