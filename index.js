@@ -5,9 +5,9 @@ const auth = require("./middleware/verifyToken");
 const isAdmin = require("./middleware/isAdmin");
 const appointmentController = require("./controllers/appointmentController");
 const isDoctor = require("./middleware/isDoctor");
+const treatmentsController = require("./controllers/treatmentController");
 
 const cors = require("cors");
-const treatmentsController = require("./controllers/treatmentController");
 
 const app = express();
 
@@ -34,6 +34,9 @@ app.get("/profile", auth, usersController.getProfile);
 
 // Ruta para obtener todos los perfiles de usuario
 app.get("/allProfiles", auth, isAdmin, usersController.getAllProfiles);
+
+// Ruta para eliminar perfil de usuario
+app.delete("/deleteProfile/:id", auth, isAdmin, usersController.deleteProfile);
 
 // Ruta para actualizar el perfil de usuario
 app.put("/updateProfile", auth, usersController.updateProfile);

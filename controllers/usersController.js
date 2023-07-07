@@ -148,6 +148,30 @@ usersController.getAllProfiles = async (req, res) => {
   }
 };
 
+usersController.deleteProfile = async (req, res) => {
+  try {
+    // Obtiene el ID del usuario de los parametros (url/id)
+    const userId = req.params.id;
+    // Elimina el tratamiento usando el modelo Treatments
+    const deleteProfile = await User.destroy({
+      where: {
+        id: userId,
+      },
+    });
+    return res.json({
+      succes: true,
+      message: "Usuario eliminado",
+      data: deleteProfile,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      succes: false,
+      message: "El usuario no pudo ser eliminado",
+      error: error,
+    });
+  }
+};
+
 // Actualizar perfiles
 usersController.updateProfile = async (req, res) => {
   try {
