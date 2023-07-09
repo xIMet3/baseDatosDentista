@@ -43,7 +43,7 @@ usersController.registerUser = async (req, res) => {
   }
 };
 
-// Iniciar sesión de un usuario
+// Iniciar sesion de un usuario
 usersController.loginUser = async (req, res) => {
   const password = req.body.password;
   const email = req.body.email;
@@ -147,25 +147,25 @@ usersController.getAllProfiles = async (req, res) => {
     });
   }
 };
-
+// Eliminar un perfil de usuario
 usersController.deleteProfile = async (req, res) => {
   try {
     // Obtiene el ID del usuario de los parametros (url/id)
     const userId = req.params.id;
-    // Elimina el tratamiento usando el modelo Treatments
+    // Elimina el usuario usando el modelo User
     const deleteProfile = await User.destroy({
       where: {
         id: userId,
       },
     });
     return res.json({
-      succes: true,
+      success: true,
       message: "Usuario eliminado",
       data: deleteProfile,
     });
   } catch (error) {
     return res.status(500).json({
-      succes: false,
+      success: false,
       message: "El usuario no pudo ser eliminado",
       error: error,
     });
